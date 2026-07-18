@@ -1,0 +1,17 @@
+{
+  "name": "DismissMeNot",
+  "short_name": "DismissMeNot",
+  "description": "A desktop notification that takes dismissal personally.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f5eedf",
+  "theme_color": "#c9e7e5",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+# Operating-system and editor files
+.DS_Store
+Thumbs.db
+Desktop.ini
+.idea/
+.vscode/
+*.code-workspace
+
+# Dependencies, build output, and test artifacts
+node_modules/
+dist/
+build/
+out/
+coverage/
+.nyc_output/
+.cache/
+.parcel-cache/
+.turbo/
+.vercel/
+playwright-report/
+test-results/
+blob-report/
+
+# Logs and temporary files
+*.log
+*.tmp
+*.swp
+*.swo
+
+# Environment and local configuration
+.env
+.env.*
+!.env.example
+auth.json
+local.properties
+secure.properties
+keystore.properties
+
+# Keys, certificates, and signing material
+*.jks
+*.keystore
+*.p12
+*.pfx
+*.pem
+*.key
+
+# Generated repository knowledge
+_Graphify/
+_RepoMem/

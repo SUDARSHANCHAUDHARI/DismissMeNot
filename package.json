@@ -1,0 +1,27 @@
+{
+  "name": "dismiss-me-not",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A desktop notification that takes dismissal personally.",
+  "author": "SudarshanTechLabs",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SUDARSHANCHAUDHARI/DismissMeNot.git"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "packageManager": "pnpm@10.28.2",
+  "scripts": {
+    "start": "python3 -m http.server 4173",
+    "test": "node --test",
+    "check": "node --check script.js && node --test"
+  },
+  "keywords": [
+    "vanilla-javascript",
+    "accessibility",
+    "interactive",
+    "notification"
+  ],
+  "license": "MIT"
+}

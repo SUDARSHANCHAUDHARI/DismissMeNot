@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; base-uri 'self'; connect-src 'none'; font-src 'self'; form-action 'none'; frame-src 'none'; img-src 'self' data:; manifest-src 'self'; media-src 'none'; object-src 'none'; script-src 'self'; style-src 'self'"
+    />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="application-name" content="DismissMeNot" />
+    <meta
+      name="description"
+      content="DismissMeNot is a tiny desktop notification with one job: refusing to leave."
+    />
+    <meta name="theme-color" content="#c9e7e5" />
+    <meta property="og:title" content="DismissMeNot" />
+    <meta
+      property="og:description"
+      content="A desktop notification that takes dismissal personally."
+    />
+    <meta property="og:type" content="website" />
+    <title>DismissMeNot — A notification with boundaries</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="manifest" href="site.webmanifest" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#persistent-notifications">Skip to notification</a>
+
+    <div class="app-shell">
+      <header class="control-bar" aria-label="Game controls">
+        <a class="brand" href="./" aria-label="DismissMeNot home">
+          <span class="brand-mark" aria-hidden="true">!</span>
+          <span>
+            <span class="brand-name">DismissMeNot</span>
+            <span class="brand-tagline">Notification support group</span>
+          </span>
+        </a>
+
+        <div class="attempt-meter" aria-label="Dismissal progress">
+          <div class="attempt-meter__copy">
+            <span>Attempts</span>
+            <output id="attempt-count" for="attempt-progress" aria-live="polite">0 / 10</output>
+          </div>
+          <progress id="attempt-progress" max="10" value="0" aria-label="Dismissal attempts">
+            0 of 10
+          </progress>
+        </div>
+
+        <div class="control-actions">
+          <button
+            class="control-button"
+            id="sound-toggle"
+            type="button"
+            aria-pressed="true"
+          >
+            <svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20">
+              <path d="M4 9v6h4l5 4V5L8 9H4Z" />
+              <path class="sound-waves" d="M16 9c.8.8 1.2 1.8 1.2 3S16.8 14.2 16 15m2.5-8.5a7.8 7.8 0 0 1 0 11" />
+            </svg>
+            <span id="sound-label">Sound on</span>
+          </button>
+          <button class="control-button control-button--reset" id="reset-button" type="button">
+            <svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20">
+              <path d="M19 8a7 7 0 1 0 1 4M19 3v5h-5" />
+            </svg>
+            <span>Reset</span>
+          </button>
+        </div>
+      </header>
+
+      <main id="main-content">
+        <section class="desktop-window" aria-labelledby="desktop-title">
+          <header class="desktop-titlebar">
+            <div class="window-dots" aria-hidden="true">
+              <span></span><span></span><span></span>
+            </div>
+            <div class="desktop-heading">
+              <h1 id="desktop-title">Monday, apparently</h1>
+              <p id="game-instructions">Close the notification. Escape works too. Probably.</p>
+            </div>
+            <div class="desktop-clock" aria-label="A suspiciously permanent time">
+              <span aria-hidden="true">09:41</span>
+              <span class="sr-only">The fake desktop clock reads 9:41</span>
+            </div>
+          </header>
+
+          <div class="desktop" id="desktop">
+            <div class="desktop-scene" aria-hidden="true">
+              <div class="wallpaper-shape wallpaper-shape--sun"></div>
+              <div class="wallpaper-shape wallpaper-shape--hill-one"></div>
+              <div class="wallpaper-shape wallpaper-shape--hill-two"></div>
+
+              <ul class="desktop-icons">
+                <li>
+                  <span class="desktop-icon desktop-icon--folder"><i></i></span>
+                  <span>Definitely Work</span>
+                </li>
+                <li>
+                  <span class="desktop-icon desktop-icon--bin"><i></i></span>
+                  <span>Good Decisions</span>
+                </li>
+              </ul>
+
+              <div class="desktop-note">
+                <span class="desktop-note__pin"></span>
+                <strong>Today</strong>
+                <span>1. Be productive</span>
+                <span class="desktop-note__done">2. Avoid pop-ups</span>
+              </div>
+            </div>
+
+            <section
+              class="notification-layer"
+              id="persistent-notifications"
+              aria-label="Persistent notifications"
+              tabindex="-1"
+            ></section>
+
+            <section
+              class="final-message"
+              id="final-message"
+              aria-labelledby="final-title"
+              hidden
+              tabindex="-1"
+            >
+              <div class="final-message__seal" aria-hidden="true">✓</div>
+              <p class="eyebrow">Notification dismissed</p>
+              <h2 id="final-title">Thank you for your patience.</h2>
+              <p>It only needed ten tiny goodbyes.</p>
+            </section>
+
+            <div class="dialog-backdrop" id="dialog-backdrop" hidden>
+              <section
+                class="fake-dialog"
+                id="confirmation-dialog"
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="dialog-title"
+                aria-describedby="dialog-description"
+              >
+                <div class="fake-dialog__badge" aria-hidden="true">?</div>
+                <div>
+                  <p class="eyebrow">Very serious confirmation</p>
+                  <h2 id="dialog-title">Dismiss this notification?</h2>
+                  <p id="dialog-description">This decision may hurt its extremely professional feelings.</p>
+                </div>
+                <div class="fake-dialog__actions">
+                  <button id="dialog-cancel" type="button">Never mind</button>
+                  <button id="dialog-confirm" class="dialog-danger" type="button">Yes, dismiss it</button>
+                </div>
+              </section>
+            </div>
+
+            <footer class="taskbar" aria-hidden="true">
+              <div class="taskbar-menu">
+                <span class="taskbar-menu__mark">D</span>
+                <strong>Start overthinking</strong>
+              </div>
+              <div class="taskbar-apps">
+                <span></span><span></span><span></span>
+              </div>
+              <div class="taskbar-status">100% emotionally available</div>
+            </footer>
+          </div>
+        </section>
+
+        <p class="keyboard-hint">
+          <kbd>Esc</kbd> attempts a dismissal · <kbd>Tab</kbd> finds every control
+        </p>
+      </main>
+
+      <footer class="page-footer">
+        <span>Zero cookies. One clingy notification.</span>
+        <span>Made with HTML, CSS, JavaScript, and poor boundaries.</span>
+      </footer>
+    </div>
+
+    <div class="sr-only" id="live-region" role="status" aria-live="polite" aria-atomic="true"></div>
+  </body>
+</html>
