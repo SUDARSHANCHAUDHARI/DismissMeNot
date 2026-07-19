@@ -9,6 +9,16 @@ function readProjectFile(fileName) {
   return fs.readFileSync(path.join(projectRoot, fileName), "utf8");
 }
 
+function effectiveRootTokens(css) {
+  const tokens = {};
+  for (const match of css.matchAll(/:root\s*\{([\s\S]*?)\}/g)) {
+    for (const declaration of match[1].matchAll(/(--[\w-]+)\s*:\s*([^;]+);/g)) {
+      tokens[declaration[1]] = declaration[2].trim();
+    }
+  }
+  return tokens;
+}
+
 test("standard project metadata is valid JSON", () => {
   const packageMetadata = JSON.parse(readProjectFile("package.json"));
   const webManifest = JSON.parse(readProjectFile("site.webmanifest"));
@@ -74,8 +84,17 @@ test("shared TinyChaos UI source contract is selector-bound", () => {
   const html = readProjectFile("index.html");
   const css = readProjectFile("styles.css");
 
-  for (const color of ["#15152a", "#fff5df", "#ff5d5d", "#4f7cff", "#ffd166", "#58d6a9", "#b695ff"]) {
-    assert.match(css, new RegExp(`--(?:ink|paper|coral|blue|butter|mint|lilac):\\s*${color}`, "i"));
+  const tokens = effectiveRootTokens(css);
+  for (const [name, expected] of Object.entries({
+    "--ink": "#15152a",
+    "--paper": "#fff5df",
+    "--coral": "#ff5d5d",
+    "--blue": "#4f7cff",
+    "--butter": "#ffd166",
+    "--mint": "#58d6a9",
+    "--lilac": "#b695ff",
+  })) {
+    assert.equal(tokens[name]?.toLowerCase(), expected, `${name} must resolve to ${expected}`);
   }
   assert.match(css, /--display-font:\s*Impact/);
   assert.match(css, /--body-font:\s*"Arial Rounded MT Bold"/);
