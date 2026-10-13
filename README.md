@@ -176,6 +176,18 @@ No GitHub Actions workflow is included. Deployment and visibility changes remain
 
 DismissMeNot targets current versions of Chrome, Edge, Firefox, and Safari. Older browsers without Web Audio remain fully usable without sound.
 
+## Author
+
+**Sudarshan Chaudhari**
+
+Solo indie developer and founder of **SudarshanTechLabs**, based in Bangkok, Thailand.
+
+- GitHub: [@SUDARSHANCHAUDHARI](https://github.com/SUDARSHANCHAUDHARI)
+- Developer contact: [sunny.sudarshan@gmail.com](mailto:sunny.sudarshan@gmail.com)
+- Business and legal contact: [sudarshantechlabs@gmail.com](mailto:sudarshantechlabs@gmail.com)
+
+DismissMeNot was designed and developed by Sudarshan Chaudhari under SudarshanTechLabs.
+
 ## License
 
 MIT © 2026 SudarshanTechLabs. See [LICENSE](LICENSE).

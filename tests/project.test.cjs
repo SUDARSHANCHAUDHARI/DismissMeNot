@@ -68,4 +68,12 @@ test("repository readiness documentation is present", () => {
   const agentGuide = readProjectFile("AGENTS.md");
   assert.match(agentGuide, /Run `pnpm check` before committing\./);
   assert.match(agentGuide, /Do not change repository visibility/);
+
+  const readme = readProjectFile("README.md");
+  assert.match(readme, /## Author/);
+  assert.match(readme, /Sudarshan Chaudhari/);
+  assert.match(readme, /SudarshanTechLabs/);
+  assert.match(readme, /SUDARSHANCHAUDHARI/);
+  assert.match(readme, /sunny\.sudarshan@gmail\.com/);
+  assert.match(readme, /sudarshantechlabs@gmail\.com/);
 });
